@@ -1,0 +1,59 @@
+<form (ngSubmit)="submit()" *ngIf="holiday" class="w-96" #ngForm="ngForm">
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input
+      name="name"
+      data-testid="inp-name"
+      [(ngModel)]="holiday.name"
+      matInput
+    />
+    <mat-error
+      ><app-form-errors
+        [control]="ngForm.form.controls['name']"
+      ></app-form-errors>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="w-full">
+    <mat-label>Description</mat-label>
+    <textarea
+      name="description"
+      rows="6"
+      data-testid="inp-description"
+      [(ngModel)]="holiday.description"
+      matInput
+    ></textarea>
+    <mat-error
+      ><app-form-errors
+        [control]="ngForm.form.controls['description']"
+      ></app-form-errors>
+    </mat-error>
+  </mat-form-field>
+
+  <div class="my-4">
+    <button type="button" mat-raised-button (click)="fileInput.click()">
+      Select Cover Image
+    </button>
+    <input
+      hidden
+      (change)="onFileSelected()"
+      #fileInput
+      type="file"
+      id="file"
+    />
+    <div class="mt-4 text-center" *ngIf="imageSrc">
+      <img [src]="imageSrc" alt="Cover Image" />
+    </div>
+  </div>
+  <div class="flex justify-evenly">
+    <a [routerLink]="['..']" mat-raised-button>Back</a>
+    <button
+      (click)="handleRemove()"
+      color="warn"
+      mat-raised-button
+      type="button"
+    >
+      Delete
+    </button>
+    <button color="primary" mat-raised-button type="submit">Save</button>
+  </div>
+</form>

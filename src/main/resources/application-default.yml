@@ -1,0 +1,3 @@
+spring:
+  flyway:
+    locations: 'db/migration,dev/db/migration'
