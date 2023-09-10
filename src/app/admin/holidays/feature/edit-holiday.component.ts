@@ -23,15 +23,17 @@ export class EditHolidayComponent {
   #messageService = inject(MessageService);
 
   constructor() {
-    this.#route.paramMap.pipe(
-      map((paramMap) => paramMap.get('id')),
-      filterDefined,
-      switchMap((value) => {
-        const id = Number(value);
-        this.#id = id;
-        return this.#holidaysRepository.setCurrentId(Number(id));
-      }),
-    );
+    this.#route.paramMap
+      .pipe(
+        map((paramMap) => paramMap.get('id')),
+        filterDefined,
+        switchMap((value) => {
+          const id = Number(value);
+          this.#id = id;
+          return this.#holidaysRepository.setCurrentId(Number(id));
+        }),
+      )
+      .subscribe();
   }
 
   handleRemove() {

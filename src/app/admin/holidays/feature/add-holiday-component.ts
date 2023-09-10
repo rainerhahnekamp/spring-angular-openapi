@@ -17,6 +17,7 @@ import { MessageService } from '@app/shared/ui-messaging';
 })
 export class AddHolidayComponent {
   emptyHoliday: HolidayFormInput = {
+    id: 0,
     name: '',
     description: '',
     hasCover: false,

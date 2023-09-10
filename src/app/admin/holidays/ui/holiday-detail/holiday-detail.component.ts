@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
   ViewChild,
 } from '@angular/core';
@@ -15,6 +16,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 export type HolidayFormInput = {
+  id: number;
   name: string;
   description: string;
   hasCover: boolean;
@@ -39,7 +41,7 @@ export type HolidayForm = HolidayFormInput & {
     MatInputModule,
   ],
 })
-export class HolidayDetailComponent {
+export class HolidayDetailComponent implements OnChanges {
   @ViewChild(NgForm) ngForm: NgForm | undefined;
   @ViewChild('fileInput') fileInput: ElementRef<HTMLInputElement> | undefined;
 
@@ -49,6 +51,12 @@ export class HolidayDetailComponent {
   @Output() remove = new EventEmitter<void>();
   cover: File | undefined;
   imageSrc = '';
+
+  ngOnChanges() {
+    if (this.holiday?.hasCover) {
+      this.imageSrc = `http://localhost:8080/api/holidays/${this.holiday.id}/cover`;
+    }
+  }
 
   submit() {
     if (this.ngForm?.valid && this.holiday && this.cover) {
