@@ -1,3 +1,3 @@
 spring:
   flyway:
-    locations: 'db/migration,dev/db/migration'
+    locations: 'db/migration,default/db/migration'

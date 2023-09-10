@@ -18,6 +18,7 @@ public class HolidayAdder {
   }
 
   public static record AddRequest(@NotBlank String name, @NotBlank String description) {}
+
   @Transactional
   public Holiday add(AddRequest addRequest) {
     var holiday = new HolidayEntity();

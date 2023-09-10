@@ -52,11 +52,6 @@ class HolidaysControllerIntegrationTest {
     assertThat(Files.exists(destinationPath))
       .withFailMessage("Cannot start when vienna.jpg exists in filestore")
       .isFalse();
-//    var holidayFile = new ClassPathResource("vienna.jpg");
-//    MultipartBodyBuilder builder = new MultipartBodyBuilder();
-//    builder.part("cover", holidayFile);
-//    var amsterdam = new HolidayDto(1L, "Amsterdam", "Netherlands");
-//    builder.part("holidayDto", amsterdam);
 
     var addRequest = new HolidayAdder.AddRequest("Vienna", "Capital of Vienna with reminiscents of the Habsburg empire");
 
@@ -75,7 +70,7 @@ class HolidaysControllerIntegrationTest {
       .expectBody()
       .jsonPath("[0].name")
       .isEqualTo("Vienna");
-    
+
     assertThat(Files.exists(destinationPath)).isTrue();
   }
 }
