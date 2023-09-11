@@ -6,7 +6,7 @@ servers:
   - url: http://localhost:8080
     description: Generated server url
 paths:
-  /api/booking:
+  /api/bookings:
     get:
       tags:
         - Bookings

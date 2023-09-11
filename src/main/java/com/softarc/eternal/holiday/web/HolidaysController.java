@@ -4,6 +4,8 @@ import com.softarc.eternal.holiday.logic.Holiday;
 import com.softarc.eternal.holiday.logic.HolidayAdder;
 import com.softarc.eternal.holiday.logic.HolidayFinder;
 import com.softarc.eternal.holiday.logic.HolidayUpdater;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -11,9 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@RequestMapping("/api/holidays")
+@RequestMapping("/api/holiday")
 @RestController
+@Tag(name = "holidays")
 public class HolidaysController {
 
   private final HolidayAdder adder;
@@ -27,6 +31,7 @@ public class HolidaysController {
   }
 
   @GetMapping
+  @Operation(operationId = "listHolidays")
   public List<Holiday> index() {
     return this.finder.find();
   }
@@ -36,10 +41,11 @@ public class HolidaysController {
     return this.finder.byId(id);
   }
 
-  @PostMapping()
+  @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public Holiday add(
-    @RequestBody HolidayAdder.AddRequest addRequest
-  ) {
+    @RequestPart HolidayAdder.AddRequest addRequest,
+    @RequestPart MultipartFile cover
+    ) {
     return adder.add(addRequest);
   }
 

@@ -2,6 +2,7 @@ import { inject, Injectable, Signal, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Holiday } from '@app/admin/holidays/model';
 import { HttpClient } from '@angular/common/http';
+import { HolidaysService } from '@app/admin/holidays/openapi';
 
 export type AddHoliday = {
   name: string;
@@ -18,6 +19,7 @@ export class HolidaysRepository {
   currentHoliday = this.#currentHoliday.asReadonly();
   #httpClient = inject(HttpClient);
   #baseUrl = 'http://localhost:8080/api/holidays';
+  #holidaysService = inject(HolidaysService);
 
   constructor() {
     this.#refetch();

@@ -20,6 +20,8 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-web'
   implementation 'org.springframework.boot:spring-boot-starter-validation'
   implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.2.0'
+
   implementation 'org.mapstruct:mapstruct:1.5.5.Final'
   implementation 'mysql:mysql-connector-java:8.0.32'
   implementation 'org.flywaydb:flyway-core'
@@ -39,7 +41,23 @@ dependencies {
   developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 }
 
+openApiGenerate {
+  generatorName.set('spring')
+  inputSpec.set("$rootDir/api/bookings.yml")
+  outputDir.set("$rootDir/generated")
+  additionalProperties.set([
+    interfaceOnly: true,
+    apiPackage: 'com.softarc.eternal.web.api',
+    documentationProvider: 'none',
+    modelPackage: 'com.softarc.eternal.web.model',
+    openApiNullable: false,
+    useSpringBoot3: true,
+    useBeanValidation: true,
+    useTags: true
+  ])
+}
 
+sourceSets.main.java.srcDirs += 'generated/src/main/java'
 tasks.named('test') {
     useJUnitPlatform()
 }
